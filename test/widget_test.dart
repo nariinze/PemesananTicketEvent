@@ -11,20 +11,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_flutter/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Login opens the event explorer', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('EventPass'), findsOneWidget);
+    await tester.enterText(find.byType(TextField).at(0), 'user@event.com');
+    await tester.enterText(find.byType(TextField).at(1), 'mobile123');
+    await tester.tap(find.text('Masuk'));
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Jelajahi event'), findsOneWidget);
+    expect(find.text('8 acara'), findsOneWidget);
   });
 }
